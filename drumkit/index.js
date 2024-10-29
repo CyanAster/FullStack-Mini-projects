@@ -1,78 +1,42 @@
-var num = document.querySelectorAll(".drum").length
-// console.log(num)
-
-for (var i = 0; i < num; i++) {
-    document.querySelectorAll(".drum")[i].addEventListener("click", function () {
-        // alert("clicked")
-        var btn = this.innerHTML
-
-        switch (btn) {
-            case 'w': var audio = new Audio("sounds/tom-1.mp3")
-                audio.play();
-                console.log("w")
-                break;
-            case 'a': var audio = new Audio("sounds/tom-2.mp3")
-                audio.play();
-                console.log("a")
-                break;
-            case 's': var audio = new Audio("sounds/tom-3.mp3")
-                audio.play();
-                console.log("s")
-                break;
-            case 'd': var audio = new Audio("sounds/tom-4.mp3")
-                audio.play();
-                console.log("d")
-                break;
-            case 'j': var audio = new Audio("sounds/snare.mp3")
-                audio.play();
-                console.log("j")
-                break;
-            case 'k': var audio = new Audio("sounds/crash.mp3")
-                audio.play();
-                console.log("k")
-                break;
-            case 'l': var audio = new Audio("sounds/kick-bass.mp3")
-                audio.play();
-                console.log("l")
-                break;
-        }
-
-    })
-}
-
+document.querySelectorAll(".drum").forEach(img => {
+  img.addEventListener("click", function () {
+    var key = this.classList[1]; // Get the specific class ('w', 'a', etc.)
+    playSound(key);
+  });
+});
 
 document.addEventListener("keypress", function (e) {
-    var key = e.key.toLowerCase()
-    switch (key) {
-        case "w": var audio = new Audio("sounds/tom-1.mp3")
-            audio.play();
-            console.log("w")
-            break;
-        case 'a': var audio = new Audio("sounds/tom-2.mp3")
-            audio.play();
-            console.log("a")
-            break;
-        case 's': var audio = new Audio("sounds/tom-3.mp3")
-            audio.play();
-            console.log("s")
-            break;
-        case 'd': var audio = new Audio("sounds/tom-4.mp3")
-            audio.play();
-            console.log("d")
-            break;
-        case 'j': var audio = new Audio("sounds/snare.mp3")
-            audio.play();
-            console.log("j")
-            break;
-        case 'k': var audio = new Audio("sounds/crash.mp3")
-            audio.play();
-            console.log("k")
-            break;
-        case 'l': var audio = new Audio("sounds/kick-bass.mp3")
-            audio.play();
-            console.log("l")
-            break;
-            default:
-                console.log(e.key)
-    }
-})
+  var key = e.key.toLowerCase();
+  playSound(key);
+});
+
+function playSound(key) {
+  let audio;
+  switch (key) {
+    case 'w':
+      audio = new Audio("sounds/tom-1.mp3");
+      break;
+    case 'a':
+      audio = new Audio("sounds/tom-2.mp3");
+      break;
+    case 's':
+      audio = new Audio("sounds/tom-3.mp3");
+      break;
+    case 'd':
+      audio = new Audio("sounds/tom-4.mp3");
+      break;
+    case 'j':
+      audio = new Audio("sounds/snare.mp3");
+      break;
+    case 'k':
+      audio = new Audio("sounds/crash.mp3");
+      break;
+    case 'l':
+      audio = new Audio("sounds/kick-bass.mp3");
+      break;
+    default:
+      console.log("Unrecognized key:", key);
+      return;
+  }
+  audio.play().catch(error => console.log("Audio playback failed:", error));
+}
